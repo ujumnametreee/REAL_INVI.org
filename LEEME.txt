@@ -1,0 +1,32 @@
+REAL INVI — AFICHE DEL PARTIDO
+
+1. Abrí pagina.html con Chrome, Edge, Firefox o Safari.
+2. Cambiá los equipos, el lema, el turno y la hora desde el panel.
+3. Elegí el escudo visitante desde tu dispositivo.
+4. Tocá Descargar PNG. El archivo queda en tus descargas, a 1122 × 1540 píxeles.
+
+No necesitás Internet ni instalar nada. El HTML incluye el fondo, el escudo
+y los contornos de las letras. Podés abrirlo aunque esté separado de la carpeta.
+
+Para modificar el aspecto del panel o la vista de captura, editá estilos.css
+y mantenelo junto a pagina.html. Ese archivo tiene prioridad sobre los estilos
+incluidos dentro del HTML.
+
+En Vista para captura, el afiche conserva su proporción. Tocá el afiche o
+presioná Esc para volver al editor.
+
+Para cambiar la foto de la cancha, guardala en la carpeta del proyecto y editá
+la línea CANCHA_PREDETERMINADA al inicio del HTML. Por ejemplo:
+const CANCHA_PREDETERMINADA = "assets/mi-cancha.jpg";
+La ruta se resuelve desde la carpeta del HTML. Guardá y recargá la página.
+Con las comillas vacías se usa la foto de la cancha nocturna incluida. Para exportar un PNG con
+una foto externa de tu carpeta, abrí el proyecto con Live Server o desde tu web.
+También se admite una imagen incluida en el código como data URL.
+El lema SOMOS REAL INIVI se conservó tal como aparecía en el HTML original.
+
+Tipografía de los textos editables: Barlow Condensed Black Italic y Barlow SemiBold, con licencia OFL.
+El fondo se creó a partir de la propuesta visual mediante generación de imagen.
+
+ENCUADRE DE LA CANCHA
+Al inicio del HTML, ENCUADRE_CANCHA controla modo, zoom, horizontal y vertical.
+Usá modo "llenar" para cubrir el espacio, o "completa" con zoom 1 para ver la foto entera. Horizontal y vertical van de 0 a 100. Con recorte, subir vertical muestra más de la parte de abajo. Guardá y recargá para ver los cambios.

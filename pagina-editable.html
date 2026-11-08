@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffd000">
+  <!-- CANCHA: escribí la ruta de tu foto, por ejemplo "imagenes/mi-cancha.jpg".
+       Con las comillas vacías se usa la foto incluida de la cancha nocturna. -->
+  <script>
+    const CANCHA_PREDETERMINADA = ""; // Ejemplo: "imagenes/mi-cancha.jpg"
+    const ENCUADRE_CANCHA = {
+      modo: "llenar",   // "completa" para ver toda la foto con zoom 1
+      zoom: 1.393,       // 1 = tamaño base; 1.20 = acercar un 20 %
+      horizontal: 15,  // 0 = izquierda, 100 = derecha
+      vertical: 95.6     // 0 = arriba, 100 = abajo
+    };
+  </script>
+  <title>Real Invi | Afiche del partido</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="cabecera"><div class="cabecera-interior"><div class="marca"><img id="marca-escudo" alt="Escudo de Real Invi"><div><strong>REAL INVI</strong><span>AFICHE DEL PARTIDO</span></div></div><div class="acciones"><button id="captura" class="secundario" type="button"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>Vista para captura</button><button id="descargar" type="button"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg>Descargar PNG</button></div></div></header>
+  <main class="editor">
+
+
+    <section class="vista" aria-label="Vista previa del afiche">
+      <div class="vista-barra"><span>Vista previa</span><b>1122 × 1540 px</b></div>
+      <div class="lienzo">
+      <svg id="afiche" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1122" height="1540" viewBox="0 0 1122 1540" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="titulo-afiche descripcion-afiche">
+        <title id="titulo-afiche">Real Invi — Gran partido</title>
+        <desc id="descripcion-afiche">Real Invi contra Equipo Rival. Segunda hora, 6:30 p. m. Más que un equipo, una familia.</desc>
+        <defs>
+          <!-- El fondo llega al mismo tono que el inicio de la foto. -->
+          <linearGradient id="salida-textura" gradientUnits="userSpaceOnUse"
+                          x1="0" y1="755" x2="0" y2="875">
+            <stop offset="0" stop-color="white"/>
+            <stop offset=".25" stop-color="#d7d7d7"/>
+            <stop offset=".5" stop-color="#808080"/>
+            <stop offset=".75" stop-color="#282828"/>
+            <stop offset="1" stop-color="black"/>
+          </linearGradient>
+          <mask id="fundido-textura" maskUnits="userSpaceOnUse"
+                x="0" y="0" width="1122" height="875">
+            <rect width="1122" height="875" fill="url(#salida-textura)"/>
+          </mask>
+          <linearGradient id="oscuro-pie" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#080a0b" stop-opacity="0"/><stop offset="1" stop-color="#080a0b" stop-opacity=".9"/></linearGradient>
+          <!-- Textura suave, solo sobre títulos y cintas; es exportable a PNG. -->
+          <filter id="grano" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".42" numOctaves="3" seed="12" result="ruido"/><feColorMatrix in="ruido" type="luminanceToAlpha"/><feComponentTransfer><feFuncA type="discrete" tableValues="0 0 0 0 0 .11 .2"/></feComponentTransfer><feComposite in="SourceGraphic" operator="out"/></filter>
+        </defs>
+        <rect width="1122" height="1540" fill="#0a0c0e"/>
+        <image id="fondo-afiche" mask="url(#fundido-textura)" x="0" y="0" width="1122" height="1402" preserveAspectRatio="xMidYMid slice"/>
+        <!-- Foto entre el lema y el horario. El recorte respeta su proporción. -->
+        <defs>
+          <clipPath id="ventana-cancha">
+            <rect id="marco-cancha" x="0" y="875" width="1122" height="505"/>
+          </clipPath>
+          <linearGradient id="fusion-cancha" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#0a0c0e"/>
+            <stop offset=".05" stop-color="#0a0c0e" stop-opacity=".87"/>
+            <stop offset=".11" stop-color="#0a0c0e" stop-opacity=".50"/>
+            <stop offset=".17" stop-color="#0a0c0e" stop-opacity=".13"/>
+            <stop offset=".22" stop-color="#0a0c0e" stop-opacity="0"/>
+            <stop offset=".84" stop-color="#0a0c0e" stop-opacity="0"/>
+            <stop offset="1" stop-color="#0a0c0e"/>
+          </linearGradient>
+        </defs>
+        <g clip-path="url(#ventana-cancha)">
+          <rect x="0" y="875" width="1122" height="505" fill="#0a0c0e"/>
+          <image id="foto-cancha" preserveAspectRatio="xMidYMid meet"/>
+          <rect x="0" y="875" width="1122" height="505" fill="url(#fusion-cancha)"/>
+        </g>
+        <path d="M1122 1270V1390L1065 1540H1021Z M1122 1430V1540H1080Z" fill="#ffd000"/>
+
+<!-- Los textos se dibujan con contornos incluidos: no dependen de fuentes instaladas. -->
+
+        <image id="escudo-local" data-imagen="local" x="158" y="478" width="316" height="334" preserveAspectRatio="xMidYMid meet"/>
+        <g id="rival-provisional" fill="none" stroke="#f8f8f4" stroke-width="8" stroke-linejoin="round">
+          <path d="M812 541C775 559 733 572 698 577V676C698 735 742 779 812 806C882 779 926 735 926 676V577C891 572 849 559 812 541Z"/>
+          <path d="M812 558C779 574 743 585 713 590V676C713 727 751 765 812 790C873 765 911 727 911 676V590C881 585 845 574 812 558Z" stroke-width="3"/>
+          <circle cx="812" cy="671" r="64" stroke-width="6"/>
+          <path d="M812 640L840 661L829 693H795L784 661Z" fill="#f8f8f4" stroke-width="2"/>
+          <path d="M812 640V610M840 661L872 650M829 693L848 723M795 693L775 723M784 661L752 650" stroke-width="4"/>
+          <path d="M785 613L790 628L768 645L753 642M839 613L835 628L856 645L871 642M874 683L858 681L850 706L858 718M812 735L803 722H821Z M751 683L767 681L775 706L766 718" fill="#f8f8f4" stroke-width="2"/>
+        </g>
+        <image id="escudo-visitante" data-imagen="visitante" x="657" y="492" width="310" height="320" preserveAspectRatio="xMidYMid meet" visibility="hidden"/>
+        <path d="M521 607H634L627 612H514Z M514 754H612L604 760H508Z" fill="#ffd000"/>
+        <g id="versus-afiche" fill="#ffd000"></g>
+        <g id="nombre-local" fill="#fafaf7"></g>
+        <g id="nombre-visitante" fill="#fafaf7"></g>
+
+        <!-- El borde inferior de la cinta queda en y=965. -->
+        <g id="bloque-lema">
+        <path d="M272 900H875L851 965H248Z" fill="#ffd000" filter="url(#grano)"/>
+        <path d="M149 933L249 929L247 937Z M873 929L982 933L871 937Z" fill="#ffd000"/>
+        <g id="lema-afiche" fill="#0b0e0e"></g>
+        </g>
+
+        <!-- El borde superior de SEGUNDA HORA queda en y=1278. -->
+        <g id="bloque-horario" transform="translate(0 138)">
+        <rect x="160" y="1130" width="800" height="260" fill="url(#oscuro-pie)"/>
+        <path d="M253 1174H899L851 1315H207Z" fill="#090b0e" fill-opacity=".92" stroke="#ffd000" stroke-width="5"/>
+        <path d="M382 1140H750L732 1192H364Z" fill="#ffd000" filter="url(#grano)"/>
+        <g id="turno-afiche" fill="#0b0e0e"></g>
+        <g id="hora-afiche" fill="#fafaf7"></g>
+        <g id="frase-afiche" fill="#fafaf7"></g>
+        </g>
+      </svg>
+      </div>
+    </section>
+    <aside class="panel" aria-label="Editar los datos del partido">
+      
+      <h1>Editar partido</h1>
+
+      <label for="local">Equipo local</label>
+      <input id="local" data-texto="nombre-local" value="REAL INVI" maxlength="50" autocomplete="off">
+      <label for="visitante">Equipo visitante</label>
+      <input id="visitante" data-texto="nombre-visitante" value="EQUIPO RIVAL" maxlength="50" autocomplete="off">
+      <label for="archivo-rival">Escudo visitante</label>
+      <input id="archivo-rival" type="file" accept="image/png,image/jpeg,image/webp">
+
+      <label for="lema">Lema del equipo</label>
+      <input id="lema" data-texto="lema-afiche" value="SOMOS REAL INIVI" maxlength="70">
+      <div class="fila">
+        <div><label for="turno">Turno</label><input id="turno" data-texto="turno-afiche" value="SEGUNDA HORA" maxlength="40"></div>
+        <div><label for="hora">Hora</label><input id="hora" data-texto="hora-afiche" value="6:30 p. m." maxlength="30"></div>
+      </div>
+      <label for="frase">Frase al pie</label>
+      <input id="frase" data-texto="frase-afiche" value="MÁS QUE UN EQUIPO, UNA FAMILIA" maxlength="90">
+
+      <details>
+        <summary>Escudo local</summary>
+        <label for="archivo-local">Cambiar el escudo local</label>
+        <input id="archivo-local" type="file" accept="image/png,image/jpeg,image/webp">
+      </details>
+
+      <p>Para volver de la vista de captura, tocá el afiche o presioná Esc.</p>
+      <p id="estado" role="status" aria-live="polite"></p>
+    </aside>
+  </main>
+  <button class="salir-captura" id="salir-captura" type="button">Volver al editor</button>
+  <script src="recursos-real-invi.js"></script>
+  <script>
+"use strict";
+// Contornos de Russo One y Barlow (licencia OFL).
+// Esto mantiene idéntica la tipografía en pantalla y al descargar, incluso sin Internet.
+const fuentes = recursosRealInvi.fuentes;
+const NS = "http://www.w3.org/2000/svg";
+const afiche = document.getElementById("afiche");
+const estado = document.getElementById("estado");
+const descargar = document.getElementById("descargar");
+const captura = document.getElementById("captura");
+const escudoRival = document.getElementById("escudo-visitante");
+const rivalProvisional = document.getElementById("rival-provisional");
+document.getElementById("marca-escudo").src = recursosRealInvi.escudo;
+document.getElementById("escudo-local").setAttribute("href", recursosRealInvi.escudo);
+document.getElementById("fondo-afiche").setAttribute("href", recursosRealInvi.fondo);
+const configuracionTextos = {
+  "versus-afiche": { caja: [512, 635, 132, 100], texto: "VS", espacio: 8, estirar: true },
+  "nombre-local": { caja: [164, 825, 308, 41], texto: "REAL INVI", espacio: 20, estirar: true },
+  "nombre-visitante": { caja: [646, 825, 337, 41], texto: "EQUIPO RIVAL", espacio: 18, estirar: true },
+  "lema-afiche": { caja: [296, 913, 529, 39], texto: "SOMOS REAL INIVI", espacio: 35, estirar: true },
+  "turno-afiche": { caja: [398, 1154, 319, 29], texto: "SEGUNDA HORA", espacio: 38, estirar: true },
+  "hora-afiche": { caja: [266, 1210, 586, 86], texto: "6:30 p. m.", espacio: 0, estirar: true },
+  "frase-afiche": { caja: [132, 1344, 836, 23], texto: "MÁS QUE UN EQUIPO, UNA FAMILIA", espacio: 180, fuente: "recta", estirar: true }
+};
+
+function dibujarTexto(id, valor) {
+  const c = configuracionTextos[id];
+  const grupo = document.getElementById(id);
+  const fuente = fuentes[c.fuente || "deportiva"];
+  const texto = String(valor).normalize("NFC");
+  grupo.replaceChildren();
+  grupo.setAttribute("role", "img");
+  grupo.setAttribute("aria-label", texto);
+  grupo.dataset.valor = texto;
+  if (!texto.trim()) return;
+  let cursor = 0, minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  const trazos = [];
+  for (const caracter of texto) {
+    const glifo = fuente[caracter] || fuente["?"];
+    if (glifo.d) {
+      const p = document.createElementNS(NS, "path");
+      p.setAttribute("d", glifo.d);
+      p.setAttribute("transform", `translate(${cursor} 0)`);
+      trazos.push(p);
+      minX = Math.min(minX, cursor + glifo.b[0]);
+      maxX = Math.max(maxX, cursor + glifo.b[2]);
+      minY = Math.min(minY, glifo.b[1]);
+      maxY = Math.max(maxY, glifo.b[3]);
+    }
+    cursor += glifo.w + (c.espacio || 0);
+  }
+  if (!trazos.length) return;
+  const [x, y, ancho, alto] = c.caja;
+  const escalaY = alto / (maxY - minY);
+  const escalaX = c.estirar ? ancho / (maxX - minX) : Math.min(escalaY * 1.4, ancho / (maxX - minX));
+  const inicioX = x + (ancho - (maxX - minX) * escalaX) / 2;
+  grupo.setAttribute("transform", `translate(${inicioX - minX * escalaX} ${y + maxY * escalaY}) scale(${escalaX} ${-escalaY})`);
+  grupo.append(...trazos);
+}
+for (const [id, c] of Object.entries(configuracionTextos)) dibujarTexto(id, c.texto);
+
+function actualizarDescripcion() {
+  document.getElementById("descripcion-afiche").textContent = `${document.getElementById("local").value} contra ${document.getElementById("visitante").value}. ${document.getElementById("turno").value}, ${document.getElementById("hora").value}. ${document.getElementById("frase").value}.`;
+}
+document.querySelectorAll("[data-texto]").forEach(campo => {
+  campo.addEventListener("input", () => {
+    dibujarTexto(campo.dataset.texto, campo.value);
+    actualizarDescripcion();
+  });
+});
+
+function leerArchivo(archivo) {
+  return new Promise((resolver, rechazar) => {
+    const lector = new FileReader();
+    lector.onload = () => resolver(lector.result);
+    lector.onerror = () => rechazar(new Error("No se pudo leer el archivo."));
+    lector.readAsDataURL(archivo);
+  });
+}
+async function prepararImagen(archivo) {
+  if (!/^image\/(png|jpeg|webp)$/.test(archivo.type)) throw new Error("Elegí una imagen PNG, JPG o WebP.");
+  const datos = await leerArchivo(archivo);
+  const imagen = new Image();
+  imagen.src = datos;
+  await imagen.decode();
+  return datos;
+}
+function colocarImagen(nombre, datos) {
+  const elemento = afiche.querySelector(`[data-imagen="${nombre}"]`);
+  if (!elemento) return;
+  elemento.setAttribute("href", datos);
+  if (nombre === "visitante") {
+    escudoRival.removeAttribute("visibility");
+    rivalProvisional.setAttribute("display", "none");
+  }
+}
+let ocupado = false;
+async function realizarAccion(accion, mensaje) {
+  if (ocupado) return;
+  ocupado = true;
+  const controles = [...document.querySelectorAll(".panel input, .acciones button")];
+  controles.forEach(control => control.disabled = true);
+  estado.textContent = mensaje;
+  try { await accion(); }
+  catch (error) { estado.textContent = error.message || "No se pudo completar. Probá de nuevo."; }
+  finally { controles.forEach(control => control.disabled = false); ocupado = false; }
+}
+function conectarSelector(id, nombre, mensaje) {
+  document.getElementById(id).addEventListener("change", evento => {
+    const archivo = evento.target.files[0];
+    if (!archivo) return;
+    realizarAccion(async () => {
+      colocarImagen(nombre, await prepararImagen(archivo));
+      estado.textContent = mensaje;
+    }, "Cargando imagen…");
+  });
+}
+conectarSelector("archivo-rival", "visitante", "Escudo visitante actualizado.");
+conectarSelector("archivo-local", "local", "Escudo local actualizado.");
+
+// Carga la cancha configurada una vez al abrir la página.
+// "llenar" cubre la ventana; "completa" muestra toda la foto con zoom 1.
+function encuadrarCancha(imagen) {
+  const marco = document.getElementById("marco-cancha");
+  const x = marco.x.baseVal.value, y = marco.y.baseVal.value;
+  const ancho = marco.width.baseVal.value, alto = marco.height.baseVal.value;
+  const ajuste = ENCUADRE_CANCHA;
+  const escalaBase = ajuste.modo === "completa" ? Math.min : Math.max;
+  function limitar(valor, minimo, maximo, defecto) {
+    return Number.isFinite(valor) ? Math.max(minimo, Math.min(maximo, valor)) : defecto;
+  }
+  const escala = escalaBase(ancho / imagen.naturalWidth, alto / imagen.naturalHeight)
+    * limitar(ajuste.zoom, 0.25, 5, 1);
+  const w = imagen.naturalWidth * escala, h = imagen.naturalHeight * escala;
+  const foto = document.getElementById("foto-cancha");
+  foto.setAttribute("width", w);
+  foto.setAttribute("height", h);
+  foto.setAttribute("x", x + (ancho - w) * limitar(ajuste.horizontal, 0, 100, 50) / 100);
+  foto.setAttribute("y", y + (alto - h) * limitar(ajuste.vertical, 0, 100, 50) / 100);
+}
+
+async function cargarCanchaPredeterminada() {
+  const ruta = CANCHA_PREDETERMINADA.trim();
+
+  const imagen = new Image();
+  imagen.src = ruta || recursosRealInvi.canchaOriginal;
+  try {
+    await imagen.decode();
+  } catch {
+    throw new Error("Revisá la ruta CANCHA_PREDETERMINADA. No se pudo cargar la foto.");
+  }
+  const foto = document.getElementById("foto-cancha");
+  foto.setAttribute("href", imagen.src);
+  encuadrarCancha(imagen);
+
+  if (imagen.src.startsWith("data:")) return;
+  // La exportación del SVG requiere incluir los píxeles de la foto.
+  try {
+    const respuesta = await fetch(imagen.src);
+    if (!respuesta.ok) throw new Error();
+    foto.setAttribute("href", await leerArchivo(await respuesta.blob()));
+  } catch {
+    if (location.protocol === "file:") {
+      throw new Error("Para descargar el PNG con una foto de tu carpeta, abrí la página con Live Server.");
+    }
+    throw new Error("Para descargar el PNG, usá una foto guardada en la carpeta del proyecto.");
+  }
+}
+
+const cargaDeCancha = cargarCanchaPredeterminada().then(
+  () => null,
+  error => { estado.textContent = error.message; return error; }
+);
+
+function volverAlEditor() {
+  if (!document.body.classList.contains("modo-captura")) return;
+  document.body.classList.remove("modo-captura");
+  captura.focus({ preventScroll: true });
+}
+captura.addEventListener("click", () => {
+  document.body.classList.add("modo-captura");
+  document.getElementById("salir-captura").focus({ preventScroll: true });
+});
+afiche.addEventListener("click", volverAlEditor);
+document.getElementById("salir-captura").addEventListener("click", volverAlEditor);
+document.addEventListener("keydown", evento => { if (evento.key === "Escape") volverAlEditor(); });
+
+async function crearPNG() {
+  const errorDeCancha = await cargaDeCancha;
+  if (errorDeCancha) throw errorDeCancha;
+  const copia = afiche.cloneNode(true);
+  // Todas las imágenes están incluidas como datos. Ninguna descarga depende de fetch ni de un servidor.
+  copia.querySelectorAll("image").forEach(elemento => { if (!elemento.getAttribute("href")) elemento.remove(); });
+  copia.setAttribute("width", "1122");
+  copia.setAttribute("height", "1540");
+  const svg = new Blob([new XMLSerializer().serializeToString(copia)], {type: "image/svg+xml;charset=utf-8"});
+  const url = URL.createObjectURL(svg);
+  try {
+    const imagen = new Image();
+    imagen.src = url;
+    await imagen.decode();
+    const lienzo = document.createElement("canvas");
+    lienzo.width = 1122; lienzo.height = 1540;
+    const contexto = lienzo.getContext("2d");
+    if (!contexto) throw new Error("Tu navegador no pudo preparar la imagen. Probá con Chrome o Edge.");
+    contexto.drawImage(imagen, 0, 0);
+    const png = await new Promise(resolver => lienzo.toBlob(resolver, "image/png"));
+    if (!png) throw new Error("No se pudo generar el PNG. Probá de nuevo.");
+    return png;
+  } finally { URL.revokeObjectURL(url); }
+}
+descargar.addEventListener("click", () => realizarAccion(async () => {
+  const png = await crearPNG();
+  const url = URL.createObjectURL(png);
+  const enlace = document.createElement("a");
+  enlace.href = url;
+  enlace.download = "afiche-real-invi.png";
+  document.body.append(enlace);
+  enlace.click();
+  enlace.remove();
+  // Safari y algunos móviles necesitan que el enlace siga vivo unos segundos.
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+  estado.textContent = "PNG listo. Revisá tus descargas.";
+}, "Preparando el afiche…"));
+
+  </script>
+</body>
+</html>
