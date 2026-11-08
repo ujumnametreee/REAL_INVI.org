@@ -412,6 +412,13 @@ async function crearPNG() {
   if (errorDeCancha) throw errorDeCancha;
   const copia = afiche.cloneNode(true);
   copia.querySelectorAll("image").forEach(elemento => { if (!elemento.getAttribute("href")) elemento.remove(); });
+  await Promise.all([...copia.querySelectorAll("image")].map(async elemento => {
+    const href = elemento.getAttribute("href");
+    if (href.startsWith("data:")) return;
+    const respuesta = await fetch(new URL(href, document.baseURI));
+    if (!respuesta.ok) throw new Error("No se pudo cargar una imagen del afiche para descargarlo.");
+    elemento.setAttribute("href", await leerArchivo(await respuesta.blob()));
+  }));
   copia.setAttribute("width", "1122");
   copia.setAttribute("height", "1540");
   copia.setAttributeNS("http://www.w3.org/XML/1998/namespace", "xml:base", document.baseURI);
